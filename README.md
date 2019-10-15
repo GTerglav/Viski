@@ -7,9 +7,11 @@ Zajel bom:
 * ime
 * tip
 * vsebnost alkohola
-* oceno 
-* ocenjevalca
+* oceno
 * ceno
+* opis, ki ga poda ocenjevalec 
+* ime ocenjevalca
+
 
 Hipoteze:
 * Ali obstaja zveza med ceno in oceno? 
