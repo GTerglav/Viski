@@ -1,9 +1,9 @@
 # Viski
 =======================
 
-Analiziral bom viskije ocenjene v letu 2019 na strani [Whiskey advocate](http://whiskyadvocate.com/ratings-and-reviews/).
+Analiziral bom viskije ocenjene v času od vključno jeseni 2019 do poletja 2015 na strani [Whiskey advocate](http://whiskyadvocate.com/ratings-and-reviews/).
 
-Zajel bom:
+Zajel sem:
 * ime
 * vrsto
 * vsebnost alkohola
@@ -11,6 +11,7 @@ Zajel bom:
 * ceno
 * opis, ki ga poda ocenjevalec 
 * ime ocenjevalca
+* čas ocene(npr. zima 2018)
 
 
 Hipoteze:
