@@ -11,8 +11,8 @@ viski_directory = 'viski_out'
 # ime datoteke v katero bomo shranili glavno stran
 frontpage_filename = 'index.html'
 # ime CSV datoteke v katero bomo shranili podatke
-csv_dir = 'csv_out'
 csv_filename = 'viski.csv'
+
 
 
 def download_url_to_string(url):
@@ -62,7 +62,7 @@ vzorec_bloka = re.compile(
 
 vzorec_viskija = re.compile(
     r'"ratingValue">(?P<ocena>.*?)</sp.*?'
-    r'="name">(?P<ime>.*?),\s(?P<alkohol>.*?)%</h1>*?'
+    r'="name">(?P<ime>.*?),\s(?P<alkohol>\d.*?)%</h1>.*?'
     r'"category">(?P<kategorija>.*?)<.*?'
     r'itemprop="price"\scontent="50.00">(?P<cena>.*?)m*l*\.*</span>.*?'
     r'itemprop="description">.*?class="p1">(?P<opis>.*?)<.*?'
@@ -73,7 +73,7 @@ vzorec_viskija = re.compile(
 
 vzorec_viskija2 = re.compile(
     r'"ratingValue">(?P<ocena>.*?)</span>.*?'
-    r'<h1\sitemprop="name">(?P<ime>.*?)(,\s(?P<alkohol>.*?)%,*|</h1>).*?'
+    r'<h1\sitemprop="name">(?P<ime>.*?)(,\s(?P<alkohol>\d.*?)%,*|</h1>).*?'
     r'<span itemprop="category">(?P<kategorija>.*?)</span>.*?'
     r'<span itemprop="price" content="50.00">(?P<cena>.*?)</span>.*?'
     r'<p>(<p class="p1">)*(<span class="s1">)*(?P<opis>.*?)(</span>)*(</p>)*</div>.*?'
@@ -136,20 +136,19 @@ def main(redownload=True, reparse=True):
     3. Podatke shrani v csv datoteko
     """
     
-    #for i in range(10):
+    #for i in range(20):
     #    viski_frontpage_url = 'http://whiskyadvocate.com/ratings-reviews/?search=&submit=+&brand_id=0&rating=0&price=0&category=0&styles_id=0&issue_id={}'.format(103-i)
     #    print(viski_frontpage_url)
     #    frontpage_filename = 'index{}.html'.format(i)
     #    save_frontpage(viski_frontpage_url, viski_directory, frontpage_filename)
-
     #niz = ""
-    #for stevec in range(10):
+    #for stevec in range(20):
     #    ime_dat = "index{}.html".format(stevec)
     #    podatki = read_file_to_string("viski_out", ime_dat)
     #    niz += podatki
     #
     #save_string_to_file(niz, "viski_out_full", "index_full.html")
-    
+
     #stevec = 0
     #vsebina = read_file_to_string(viski_directory, frontpage_filename)
     #for blok in vzorec_bloka.findall(vsebina):
@@ -159,7 +158,7 @@ def main(redownload=True, reparse=True):
     
 #
     viskiji = []
-    for blok in blok_iz_dat(viski_directory, frontpage_filename):
+    for blok in blok_iz_dat("viski_out_full", "index_full.html"):
         viskiji.append(blok)
     viskiji.sort(key=lambda viski: viski['ocena'])
     orodja.zapisi_csv(
