@@ -89,10 +89,10 @@ vzorec_alkohola = re.compile(
 def izloci_podatke(blok):
     viski = vzorec_viskija2.search(blok).groupdict()
     viski['ocena'] = int(viski['ocena'])
-    if viski['cena'] == '':
-        viski['cena'] = None
+    if viski['cena'].isdigit():
+        viski['cena'] = int(viski['cena'])
     else:
-        viski['cena'] = viski['cena']
+        viski['cena'] = None
     #if viski['cena'] == '':
     #    viski['cena'] = None
     #else:
@@ -100,7 +100,8 @@ def izloci_podatke(blok):
     #        viski['cena'] = (viski['cena']//1000)*2
     #    else:
     #        viski['cena'] = int(viski['cena'].replace(',', '').replace('/', '')) 
-    viski['opis'] = viski['opis'].strip()
+    
+    
     #alkohola = vzorec_alkohola.search(blok)
     #if alkohola:
     #    viski['alkohol'] = alkohola['alkohol']
