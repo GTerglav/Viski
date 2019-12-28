@@ -141,24 +141,24 @@ def main(redownload=True, reparse=True):
     3. Podatke shrani v csv datoteko
     """
     
-    for i in range(100):
-        viski_frontpage_url = 'http://whiskyadvocate.com/ratings-reviews/?search=&submit=+&brand_id=0&rating=0&price=0&category=0&styles_id=0&issue_id={}'.format(103-i)
-        print(viski_frontpage_url)
-        frontpage_filename = 'index{}.html'.format(i)
-        save_frontpage(viski_frontpage_url, viski_directory, frontpage_filename)
-    niz = ""
-    for stevec in range(100):
-        ime_dat = "index{}.html".format(stevec)
-        podatki = read_file_to_string("viski_out", ime_dat)
-        niz += podatki
-    
-    save_string_to_file(niz, "viski_out_full", "index_full.html")
-    stevec = 0
-    vsebina = read_file_to_string(viski_directory, frontpage_filename)
-    for blok in vzorec_bloka.findall(vsebina):
-        viski = vzorec_viskija2.search(blok).groupdict()
-        stevec += 1
-        print(stevec)
+    #for i in range(100):
+    #    viski_frontpage_url = 'http://whiskyadvocate.com/ratings-reviews/?search=&submit=+&brand_id=0&rating=0&price=0&category=0&styles_id=0&issue_id={}'.format(103-i)
+    #    print(viski_frontpage_url)
+    #    frontpage_filename = 'index{}.html'.format(i)
+    #    save_frontpage(viski_frontpage_url, viski_directory, frontpage_filename)
+    #niz = ""
+    #for stevec in range(100):
+    #    ime_dat = "index{}.html".format(stevec)
+    #    podatki = read_file_to_string("viski_out", ime_dat)
+    #    niz += podatki
+    #
+    #save_string_to_file(niz, "viski_out_full", "index_full.html")
+    #stevec = 0
+    #vsebina = read_file_to_string(viski_directory, frontpage_filename)
+    #for blok in vzorec_bloka.findall(vsebina):
+    #    viski = vzorec_viskija2.search(blok).groupdict()
+    #    stevec += 1
+    #    print(stevec)
     
 #
     viskiji = []
