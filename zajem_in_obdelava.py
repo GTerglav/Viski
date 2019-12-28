@@ -73,7 +73,7 @@ vzorec_viskija = re.compile(
 
 vzorec_viskija2 = re.compile(
     r'"ratingValue">(?P<ocena>.*?)</span>.*?'
-    r'<h1\sitemprop="name">(?P<ime>.*?)(,\s(?P<alkohol>\d.*?)%,*|</h1>).*?'
+    r'<h1\sitemprop="name">(?P<ime>.*?)(,"*\s+(?P<alkohol>\d.*?)%,*|</h1>).*?'
     r'<span itemprop="category">(?P<kategorija>.*?)</span>.*?'
     r'<span itemprop="price" content="50.00">(?P<cena>.*?)</span>.*?'
     r'<p>(<p class="p1">)*(<span class="s1">)*(?P<opis>.*?)(</span>)*(</p>)*</div>.*?'
@@ -100,8 +100,12 @@ def izloci_podatke(blok):
     #        viski['cena'] = (viski['cena']//1000)*2
     #    else:
     #        viski['cena'] = int(viski['cena'].replace(',', '').replace('/', '')) 
-    
-    
+    if viski['alkohol'] is None:
+        viski['alkohol'] = None
+    elif viski['alkohol'].isdigit():
+        viski['alkohol'] = float(viski['alkohol'])
+    else:
+        viski['alkohol'] = None
     #alkohola = vzorec_alkohola.search(blok)
     #if alkohola:
     #    viski['alkohol'] = alkohola['alkohol']
@@ -137,25 +141,24 @@ def main(redownload=True, reparse=True):
     3. Podatke shrani v csv datoteko
     """
     
-    #for i in range(20):
-    #    viski_frontpage_url = 'http://whiskyadvocate.com/ratings-reviews/?search=&submit=+&brand_id=0&rating=0&price=0&category=0&styles_id=0&issue_id={}'.format(103-i)
-    #    print(viski_frontpage_url)
-    #    frontpage_filename = 'index{}.html'.format(i)
-    #    save_frontpage(viski_frontpage_url, viski_directory, frontpage_filename)
-    #niz = ""
-    #for stevec in range(20):
-    #    ime_dat = "index{}.html".format(stevec)
-    #    podatki = read_file_to_string("viski_out", ime_dat)
-    #    niz += podatki
-    #
-    #save_string_to_file(niz, "viski_out_full", "index_full.html")
-
-    #stevec = 0
-    #vsebina = read_file_to_string(viski_directory, frontpage_filename)
-    #for blok in vzorec_bloka.findall(vsebina):
-    #    viski = vzorec_viskija2.search(blok).groupdict()
-    #    stevec += 1
-    #    print(stevec)
+    for i in range(100):
+        viski_frontpage_url = 'http://whiskyadvocate.com/ratings-reviews/?search=&submit=+&brand_id=0&rating=0&price=0&category=0&styles_id=0&issue_id={}'.format(103-i)
+        print(viski_frontpage_url)
+        frontpage_filename = 'index{}.html'.format(i)
+        save_frontpage(viski_frontpage_url, viski_directory, frontpage_filename)
+    niz = ""
+    for stevec in range(100):
+        ime_dat = "index{}.html".format(stevec)
+        podatki = read_file_to_string("viski_out", ime_dat)
+        niz += podatki
+    
+    save_string_to_file(niz, "viski_out_full", "index_full.html")
+    stevec = 0
+    vsebina = read_file_to_string(viski_directory, frontpage_filename)
+    for blok in vzorec_bloka.findall(vsebina):
+        viski = vzorec_viskija2.search(blok).groupdict()
+        stevec += 1
+        print(stevec)
     
 #
     viskiji = []
