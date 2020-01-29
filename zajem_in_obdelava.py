@@ -89,6 +89,11 @@ vzorec_alkohola = re.compile(
 def izloci_podatke(blok):
     viski = vzorec_viskija2.search(blok).groupdict()
     viski['ocena'] = int(viski['ocena'])
+    viski['cas_ocene'] = str(viski['cas_ocene'])
+    viski['ime'] = str(viski['ime'])
+    viski['opis'] = str(viski['opis'])
+    viski['kategorija'] = str(viski['kategorija'])
+    viski['ocenjevalec'] = str(viski['ocenjevalec'])
     if viski['cena'].replace("$", "").replace(".", "").replace(",", "").isdigit():
         viski['cena'] = float(viski['cena'].replace("$", "").replace(",", ""))
     else:
